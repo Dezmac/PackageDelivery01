@@ -1,0 +1,41 @@
+﻿@model PackageDelivery01.Models.Package
+
+<h1>Package Details</h1>
+<p><strong>Package ID:</strong> @Model.PackageID</p>
+<p><strong>Service Type:</strong> @Model.ServiceType</p>
+<p><strong>Status:</strong> @Model.Status</p>
+<p><strong>Weight:</strong> @Model.Weight</p>
+
+<h2>Customer Information</h2>
+<p><strong>Name:</strong> @Model.Customer?.Name ?? "No Customer Data"</p>
+<p><strong>Address:</strong> @Model.Customer?.Address ?? "No Address Data"</p>
+
+<h2>Tracking Information</h2>
+@if (Model.Trackings != null && Model.Trackings.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Location</th>
+                <th>Status</th>
+                <th>Timestamp</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tracking in Model.Trackings)
+            {
+                <tr>
+                    <td>@tracking.Location ?? "No Location"</td>
+                    <td>@tracking.Status ?? "No Status"</td>
+                    <td>@tracking.Timestamp?.ToString("g") ?? "No Timestamp"</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No tracking details available for this package.</p>
+}
+
+
